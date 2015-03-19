@@ -1,0 +1,31 @@
+Setting up ISP connections:
+
+Martin,
+
+I've managed to ISP program the lpc812 on the Xpresso board, here are my notes:
+
+Separate the lpc812 target from the LPC-link: wipe over the solder shorts between the pins of J4 with a bit of solder wick.
+
+Solder an 8-pin header to J7.
+
+Connect J7-1 to GND, J7-3 to 3v3, board should run. Takes about 8mA running the Blinky demo app.
+
+Connect J7-4 to TXD and J7-5 to RXD of a 3V3 serial port.
+NOTE: TXD/RXD are from the point of view of the external serial device, not the lpc812.
+
+Connect a button or jumper between J7-7 and J7-8, this is the ISP enable switch.
+
+I used an FTDI FT2232H mini-module to connect to TXD/RXD and provide the 3V3 power, mainly because I had one lying around.....
+
+It would have been better if Reset had been connected to J7 as well....
+
+ISP protocol has definitely changed and it looks like (CR)(LF) is required to terminate commands.
+Data is sent plain binary, Not UUENCODED, and there is no checksum.
+
+Clock frequency is always 12MHz, the bootloader uses the internal RC oscillator.
+
+I've attached the very hacky python script I used to program the device, it may be of some use...
+
+--
+mike
+
